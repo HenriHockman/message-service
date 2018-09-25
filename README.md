@@ -1,4 +1,4 @@
-# MeSe MessageService
+# MessageService
 
 ## How to get going
 
