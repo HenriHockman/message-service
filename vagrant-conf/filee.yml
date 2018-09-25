@@ -1,0 +1,46 @@
+---
+- hosts: all
+  become: true
+
+  # Add RabbitMQ repository
+  - apt_repository:
+      repo: deb https://dl.bintray.com/rabbitmq/debian jessie main
+      state: present
+      update_cache: yes
+
+  # Add signing keys
+  - apt_key:
+      url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+      state: present
+
+  - name: Install packages
+    apt:
+      name: rabbitmq-server
+      update_cache: yes
+      state: latest
+
+  - name: Enables the rabbitmq_management plugin
+    rabbitmq_plugin:
+      names: rabbitmq_management
+      state: enabled
+
+  # Add user to server and assign full access control on / vhost.
+  - name: Add user
+    rabbitmq_user:
+      user: tester
+      password: test
+      vhost: /
+      configure_priv: .*
+      read_priv: .*
+      write_priv: .*
+      state: present
+      tags: administrator, management
+
+  - name: Remove default guest user
+    rabbitmq_user:
+      user: guest
+      state: absent
+
+  handlers:
+  - name: restart rabbitmq
+    service: name=rabbitmq-server state=restarted

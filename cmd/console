@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+
+require_once dirname(__DIR__) . '/conf/mq-conf.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Console\RabbitMQCommand;
+
+$app = new Application();
+
+$app->add(new RabbitMQCommand());
+
+try {
+    $app->run();
+} catch (Exception $e) {
+    printf('Following error occurred: %s', $e->getMessage());
+}

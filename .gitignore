@@ -1,0 +1,27 @@
+# Ignore third-party libraries
+/vendor/
+
+# Ignore full .idea. It's too unpredictable.
+.idea
+
+# User-specific stuff:
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
+.idea/deployment.xml
+.idea/php.xml
+.idea/RMQ-server-VM.iml
+
+## File-based project format:
+*.iws
+
+/build/
+/src/docs/
+/src/env/
+
+###> Vagrant ###
+.vagrant
+###< Vagrant ###
+
+# Ignore VSCode project data
+.vscode/
